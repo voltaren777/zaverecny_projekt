@@ -15,21 +15,23 @@ public class Ui {
     private int vstup = 0;
 
     /**
-     * Cyklus pro běh samotného programu
+     * Cyklus pro běh samotného programu, volby jsou zadávány čísly v rozmezí 1-4
      *
      * @param sc
      * @param seznamPojistencu
      */
     public void behProgramu(Scanner sc, SeznamPojistencu seznamPojistencu) {
-        while (vstup != 4) {
-            zobrazVychoziObrazovku(sc);
-            if (vstup == 1) {
+        
+        while (vstup != 4) {                        // Pri zvolení 4 se program ukončí
+            zobrazVychoziObrazovku(sc);        
+            zpracujPrikaz(sc);
+            if (vstup == 1) {                       // Při zvolení 1 se spustí proces vložení nového pojištěnce
                 zobrazUIProPridaniPojisteneho(sc, seznamPojistencu);
-            } else if (vstup == 2) {
+            } else if (vstup == 2) {                // Při zvolení 2 se zobrazí seznam všech pojištěnýchh
                 seznamPojistencu.zobrazVsechnyPojištěnce(sc);
-            } else if (vstup == 3) {
+            } else if (vstup == 3) {                // Zvolení 3 umožňuje vyhledat pojištěnce dle jména a příjmení
                 zobrazUIProVyhledaniPojistence(sc, seznamPojistencu);
-            } else if (vstup > 4){
+            } else if ((vstup > 4)||(vstup < 1)){   // Ošetření neplatných zadání
                 System.out.println("\nNeplatné zadání, vložte číslo v rozmezí 1-4\n\nPro pokračování stiskněte enter");
                 sc.nextLine();}
         }}
@@ -39,15 +41,22 @@ public class Ui {
      * Zobrazí výchozí obrazovku a rozhraní pro zadání číselných pokynů
      *
      * @param sc
-     * @return
      */
-    public int zobrazVychoziObrazovku(Scanner sc) {
+    public void zobrazVychoziObrazovku(Scanner sc) {
 
         System.out.println("Evidence Pojištěných\n\n");
 
         System.out.println("Vyberte si akci:\n1 - Přidat nového pojisteného \n2 - Vypsat všechny pojištěné \n3 - Vyhledat pojištěného \n4 - Konec\n");
 
-        try {                                                                       // Zadání pokynu a jeho validace pomocí try-catch
+    }
+
+    /**
+     *Umožní uživately vložit číselný pokyn který vrátí
+     * @param Scanner
+     * @return vstup (ciselny pokyn)
+     */
+    public int zpracujPrikaz(Scanner sc){                                  // Zadání číselného pokynu a jeho validace pomocí try-catch
+        try {                                                                       
             vstup = Integer.parseInt(sc.nextLine());
             return vstup;
         } catch (Exception e) {
@@ -62,6 +71,7 @@ public class Ui {
      * Zobrazí rozhraní pro zadání nového pojištěnce, zvaliduje vstup a přidá
      * pojištěnce do seznamu.
      *
+     * @param sc
      * @param Scanner
      * @param seznamPojistencu
      */
