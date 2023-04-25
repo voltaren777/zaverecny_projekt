@@ -12,10 +12,10 @@ public class Pojistenec {
 
     private String jmeno;
     private String prijmeni;
-    private int telefonniCislo;
+    private String telefonniCislo;
     private int vek;
 
-    public Pojistenec(String jmeno, String prijmeni, int telefonniCislo, int vek) {
+    public Pojistenec(String jmeno, String prijmeni, String telefonniCislo, int vek) {
         this.jmeno = jmeno;
         this.prijmeni = prijmeni;
         this.telefonniCislo = telefonniCislo;
@@ -39,7 +39,7 @@ public class Pojistenec {
     /**
      * @return the telefonniCislo
      */
-    public int getTelefonniCislo() {
+    public String getTelefonniCislo() {
         return telefonniCislo;
     }
 

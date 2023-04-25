@@ -19,23 +19,22 @@ public class SeznamPojistencu {
      *Přidá pojštěnce
      * @param pojistenec
      */
-    public void pridejPojistenceDoSeznamu(Pojistenec pojistenec) {
+    public void pridejPojistenceDoSeznamu(String jmeno, String prijmeni, String telefonniCislo,int vek) {
 
-        pojistenci.add(pojistenec);                                         //Uložení pojištěnce do kolekce
+        pojistenci.add(new Pojistenec(jmeno,prijmeni,telefonniCislo,vek));                                         //Uložení pojištěnce do kolekce
     }
 
     /**
      *Cyklem vypíše všechny seznam všech pojištěnců
      * @param Scanner
      */
-    public void zobrazVsechnyPojištěnce(Scanner sc) {
+    public void zobrazVsechnyPojistence() {
 
         for (Pojistenec pojistenec : pojistenci) {
             System.out.printf("\n%s\n", pojistenec);
 
         }
-        System.out.println("\nPro pokračování stiskněte enter\n");
-        sc.nextLine();
+
     }
 
     /**

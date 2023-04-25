@@ -15,48 +15,48 @@ public class Ui {
     private int vstup = 0;
 
     /**
-     * Cyklus pro běh samotného programu, volby jsou zadávány čísly v rozmezí 1-4
+     * Cyklus pro běh samotného programu
      *
      * @param sc
      * @param seznamPojistencu
      */
     public void behProgramu(Scanner sc, SeznamPojistencu seznamPojistencu) {
-        
-        while (vstup != 4) {                        // Pri zvolení 4 se program ukončí
-            zobrazVychoziObrazovku(sc);        
-            zpracujPrikaz(sc);
-            if (vstup == 1) {                       // Při zvolení 1 se spustí proces vložení nového pojištěnce
+
+        while (vstup != 4) {
+            zobrazVychoziObrazovku(sc);
+            if (vstup == 1) {
                 zobrazUIProPridaniPojisteneho(sc, seznamPojistencu);
-            } else if (vstup == 2) {                // Při zvolení 2 se zobrazí seznam všech pojištěnýchh
-                seznamPojistencu.zobrazVsechnyPojištěnce(sc);
-            } else if (vstup == 3) {                // Zvolení 3 umožňuje vyhledat pojištěnce dle jména a příjmení
+                System.out.println("\n\nPřidán nový pojištěný!\nPro pokračování stiskněte enter\n\n");
+                sc.nextLine();
+            } else if (vstup == 2) {
+                seznamPojistencu.zobrazVsechnyPojistence();
+                System.out.println("\nPro pokračování stiskněte enter\n");
+                sc.nextLine();
+            } else if (vstup == 3) {
                 zobrazUIProVyhledaniPojistence(sc, seznamPojistencu);
-            } else if ((vstup > 4)||(vstup < 1)){   // Ošetření neplatných zadání
+                System.out.println("\n\nPro pokračování stiskněte enter\n");
+                sc.nextLine();
+            } else if (vstup > 4) {
                 System.out.println("\nNeplatné zadání, vložte číslo v rozmezí 1-4\n\nPro pokračování stiskněte enter");
-                sc.nextLine();}
-        }}
-    
+                sc.nextLine();
+            }
+        }
+    }
 
     /**
      * Zobrazí výchozí obrazovku a rozhraní pro zadání číselných pokynů
      *
      * @param sc
+     * @return
      */
-    public void zobrazVychoziObrazovku(Scanner sc) {
+    public int zobrazVychoziObrazovku(Scanner sc) {
 
         System.out.println("Evidence Pojištěných\n\n");
 
         System.out.println("Vyberte si akci:\n1 - Přidat nového pojisteného \n2 - Vypsat všechny pojištěné \n3 - Vyhledat pojištěného \n4 - Konec\n");
 
-    }
-
-    /**
-     *Umožní uživately vložit číselný pokyn který vrátí
-     * @param Scanner
-     * @return vstup (ciselny pokyn)
-     */
-    public int zpracujPrikaz(Scanner sc){                                  // Zadání číselného pokynu a jeho validace pomocí try-catch
-        try {                                                                       
+        try {                                                                       // Zadání pokynu a jeho validace pomocí try-catch
+            vstup = 0;
             vstup = Integer.parseInt(sc.nextLine());
             return vstup;
         } catch (Exception e) {
@@ -72,13 +72,11 @@ public class Ui {
      * pojištěnce do seznamu.
      *
      * @param sc
-     * @param Scanner
      * @param seznamPojistencu
      */
     public void zobrazUIProPridaniPojisteneho(Scanner sc, SeznamPojistencu seznamPojistencu) {
 
-        int telefonniCislo = -1;
-        int vek = -1;
+        String telefonniCislo = "";
 
         System.out.println("Zadejte jméno pojišteného:");       // Zadání jména
         String jmeno = sc.nextLine();
@@ -88,36 +86,24 @@ public class Ui {
 
         System.out.println("Zadejte telefoní číslo:");          // Zadání telefoního čísla + validace vstupu
 
-        while (telefonniCislo == -1) {
+        while (telefonniCislo.equals("")) {
 
-            try {
-                telefonniCislo = Integer.parseInt(sc.nextLine());
-            } catch (Exception e) {
-                System.out.println("Neplatný vstup, musíte vložit číslo. Opakujte zadání prosím");
-            }
+            telefonniCislo = sc.nextLine();
+
         }
-        System.out.println("Zadejte věk:");                    // Zadání věku + validace vstupu
+        System.out.println("Zadejte věk:");                    // Zadání věku + validace vstupu přes funkci nactiCislo()
 
-        while (vek == -1) {
+        int vek = nactiCislo(sc);
 
-            try {
-                vek = Integer.parseInt(sc.nextLine());
-            } catch (Exception e) {
-                System.out.println("Neplatný vstup, musíte vložit číslo. Opakujte zadání prosím");
-            }
-        }
+        seznamPojistencu.pridejPojistenceDoSeznamu(jmeno, prijmeni, telefonniCislo, vek);  // Přídání pojištěnce do seznamu
 
-        seznamPojistencu.pridejPojistenceDoSeznamu(new Pojistenec(jmeno, prijmeni, telefonniCislo, vek));  // Přídání pojištěnce do seznamu
-
-        System.out.println("\n\nPřidán nový pojištěný!\nPro pokračování stiskněte enter\n\n");
-        sc.nextLine();
     }
 
     /**
      * Zobrazí rozhraní pro zadání jména a příjmení a v případě nalezení
      * shodných parametrů v seznamu pojištěných vypíše údaje dotyčného.
      *
-     * @param sc
+     * @param scanner
      * @param seznamPojistencu
      */
     public void zobrazUIProVyhledaniPojistence(Scanner sc, SeznamPojistencu seznamPojistencu) {
@@ -128,8 +114,25 @@ public class Ui {
         String prijmeni = sc.nextLine();
 
         System.out.println("\n" + seznamPojistencu.vyhledejPojistence(jmeno, prijmeni));      //Vyhledání pojištěnce dle jména a příjmení
-        System.out.println("\n\nPro pokračování stiskněte enter\n");
-        sc.nextLine();
 
+    }
+
+    /**
+     * Zadání a validace čísla
+     *
+     * @param Scanner
+     * @return Zvalidovane číslo
+     */
+    public int nactiCislo(Scanner sc) {
+        int cislo = -1;
+        while (cislo == -1) {
+
+            try {
+                cislo = Integer.parseInt(sc.nextLine());
+            } catch (Exception e) {
+                System.out.println("Neplatný vstup, musíte vložit číslo. Opakujte zadání prosím");
+            }
+        }
+        return cislo;
     }
 }
