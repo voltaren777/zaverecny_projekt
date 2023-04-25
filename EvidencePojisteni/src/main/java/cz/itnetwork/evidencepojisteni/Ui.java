@@ -55,14 +55,7 @@ public class Ui {
 
         System.out.println("Vyberte si akci:\n1 - Přidat nového pojisteného \n2 - Vypsat všechny pojištěné \n3 - Vyhledat pojištěného \n4 - Konec\n");
 
-        try {                                                                       // Zadání pokynu a jeho validace pomocí try-catch
-            vstup = 0;
-            vstup = Integer.parseInt(sc.nextLine());
-            return vstup;
-        } catch (Exception e) {
-            System.out.println("\nVstup musí být číslo, opakujte volbu prosím\n\nPro pokračování stiskněte enter.");
-            sc.nextLine();
-        }
+        vstup = nactiCislo(sc);
 
         return vstup;
     }
