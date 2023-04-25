@@ -46,8 +46,8 @@ public class Ui {
     /**
      * Zobrazí výchozí obrazovku a rozhraní pro zadání číselných pokynů
      *
-     * @param sc
-     * @return
+     * @param Scanner
+     * @return pokyn k ovladani programu
      */
     public int zobrazVychoziObrazovku(Scanner sc) {
 
