@@ -26,7 +26,6 @@ public class SeznamPojistencu {
 
     /**
      *Cyklem vypíše všechny seznam všech pojištěnců
-     * @param Scanner
      */
     public void zobrazVsechnyPojistence() {
 

@@ -17,7 +17,7 @@ public class Ui {
     /**
      * Cyklus pro běh samotného programu
      *
-     * @param sc
+     * @param Scanner
      * @param seznamPojistencu
      */
     public void behProgramu(Scanner sc, SeznamPojistencu seznamPojistencu) {
@@ -64,7 +64,7 @@ public class Ui {
      * Zobrazí rozhraní pro zadání nového pojištěnce, zvaliduje vstup a přidá
      * pojištěnce do seznamu.
      *
-     * @param sc
+     * @param Scanner
      * @param seznamPojistencu
      */
     public void zobrazUIProPridaniPojisteneho(Scanner sc, SeznamPojistencu seznamPojistencu) {
@@ -96,7 +96,7 @@ public class Ui {
      * Zobrazí rozhraní pro zadání jména a příjmení a v případě nalezení
      * shodných parametrů v seznamu pojištěných vypíše údaje dotyčného.
      *
-     * @param scanner
+     * @param Scanner
      * @param seznamPojistencu
      */
     public void zobrazUIProVyhledaniPojistence(Scanner sc, SeznamPojistencu seznamPojistencu) {
