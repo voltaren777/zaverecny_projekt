@@ -68,7 +68,7 @@ public class Ui {
      * @param seznamPojistencu
      */
     public void zobrazUIProPridaniPojisteneho(Scanner sc, SeznamPojistencu seznamPojistencu) {
-
+        String pokusSGitem = "";
         String telefonniCislo = "";
 
         System.out.println("Zadejte jméno pojišteného:");       // Zadání jména
